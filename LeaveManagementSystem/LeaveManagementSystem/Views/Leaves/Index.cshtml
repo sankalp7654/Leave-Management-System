@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LeaveManagementSystem.Models.Leave>
+
+@{
+    ViewBag.Title = "Leaves List";
+}
+
+<h2>Leaves List</h2>
+
+<p>
+    @Html.ActionLink("Create a new Leave", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+           Max Days
+        </th>
+        <th>
+            Max Count
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.max_days)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.max_count)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        </td>
+    </tr>
+}
+
+</table>

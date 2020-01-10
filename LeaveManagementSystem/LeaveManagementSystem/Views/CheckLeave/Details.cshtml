@@ -1,0 +1,50 @@
+﻿@model LeaveManagementSystem.Models.Employees_Other_Leave_Counts
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employees_Other_Leave_Counts</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.maternity_leave_count_left)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.maternity_leave_count_left)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.paternity_leave_count_left)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.paternity_leave_count_left)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.child_adoption_leave_count_left)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.child_adoption_leave_count_left)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.code }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

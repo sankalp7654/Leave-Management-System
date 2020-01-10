@@ -1,0 +1,184 @@
+﻿
+@using LeaveManagementSystem.Models;
+
+@model LeaveManagementSystem.Models.GenerateReportModel
+
+@{
+    ViewBag.Title = "GetReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    LeaveManagementDBEntities db = new LeaveManagementDBEntities();
+
+    var obj = db.Employees_Take_Leaves.Where(s => s.financial_year_start == Model.financial_year_start).Where(s => s.financial_year_end == Model.financial_year_end).Where(s => s.leave_id == Model.leave_id).ToList();
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Bootstrap -->
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+
+            <h2>GetReports</h2>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+
+
+                        <h4>Details</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Financial Year 
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.financial_year_start) - @Html.DisplayFor(model => model.financial_year_end)
+
+                            </dd>
+
+                            <dt>
+                                Leave Type
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.leave_name)
+                            </dd>
+
+                        </dl>
+
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+
+
+
+                                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee Code</th>
+                                            <th>Date From</th>
+                                            <th>Date To</th>
+                                            <th>Financial Year Start</th>
+                                            <th>Financial Year End</th>
+                                            <th>Days</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @for (int i = 0; i < obj.Count(); i++)
+                                        {
+
+
+                                        <tr>
+                                            <td>
+                                                @obj[i].emp_code
+                                            </td>
+                                            <td>
+                                                @obj[i].date_from.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @obj[i].date_to.Date.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @obj[i].financial_year_start
+                                            </td>
+                                            <td>
+                                                @obj[i].financial_year_end
+                                            </td>
+                                            <td>
+                                                @obj[i].no_of_days
+                                            </td>
+                                        </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:10px; border:1px solid black">
+            <div><a href="@Url.Action("Report", "GenerateReport", new { id = "PDF" })">Get Report PDF</a></div>
+            <div><a href="@Url.Action("Report", "GenerateReport", new { id = "Excel" })">Get Report Excel</a></div>
+            <div><a href="@Url.Action("Report", "GenerateReport", new { id = "Word" })">Get Report Word</a></div>
+        </div>
+        <!-- /page content -->
+        <div>
+            @Html.ActionLink("Back to List", "Index", "Home")
+        </div>
+
+
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="~/vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+
+
+
+</body>
+</html>
+
+

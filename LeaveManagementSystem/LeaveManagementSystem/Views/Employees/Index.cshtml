@@ -1,0 +1,69 @@
+﻿@model IEnumerable<LeaveManagementSystem.Models.Employee>
+
+@{
+    ViewBag.Title = "Employees List";
+}
+
+<h2>Employees List</h2>
+
+<p>
+    @Html.ActionLink("Add a new Employee", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Code
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Post
+        </th>
+        <th>
+            Type Of Institute
+        </th>
+        <th>
+            Posting Place
+        </th>
+        <th>
+            Block Headquarter
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.post)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type_of_institute)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.posting_place)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.block_hq)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.code }) |
+            @Html.ActionLink("Details", "Details", new { id = item.code }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.code })
+        </td>
+    </tr>
+}
+
+</table>

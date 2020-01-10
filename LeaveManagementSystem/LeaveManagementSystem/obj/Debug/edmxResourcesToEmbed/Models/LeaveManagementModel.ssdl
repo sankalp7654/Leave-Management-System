@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LeaveManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="post" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="type_of_institute" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="posting_place" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="block_hq" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees_Other_Leave_Counts">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="maternity_leave_count_left" Type="int" Nullable="false" />
+    <Property Name="paternity_leave_count_left" Type="int" Nullable="false" />
+    <Property Name="child_adoption_leave_count_left" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees_Take_Leaves">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="emp_code" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="leave_id" Type="int" Nullable="false" />
+    <Property Name="date_from" Type="date" Nullable="false" />
+    <Property Name="date_to" Type="date" Nullable="false" />
+    <Property Name="no_of_days" Type="int" Nullable="false" />
+    <Property Name="financial_year_start" Type="int" Nullable="false" />
+    <Property Name="financial_year_end" Type="int" Nullable="false" />
+    <Property Name="absent_days" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Leave">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="max_days" Type="int" Nullable="false" />
+    <Property Name="max_count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Employees_Other_Leave_Counts_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Employees_Other_Leave_Counts" Type="Self.Employees_Other_Leave_Counts" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="Employees_Other_Leave_Counts">
+        <PropertyRef Name="code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Take_Leaves_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Employees_Take_Leaves" Type="Self.Employees_Take_Leaves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="Employees_Take_Leaves">
+        <PropertyRef Name="emp_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Take_Leaves_Leave">
+    <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+    <End Role="Employees_Take_Leaves" Type="Self.Employees_Take_Leaves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Leave">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees_Take_Leaves">
+        <PropertyRef Name="leave_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LeaveManagementDBModelStoreContainer">
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees_Other_Leave_Counts" EntityType="Self.Employees_Other_Leave_Counts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees_Take_Leaves" EntityType="Self.Employees_Take_Leaves" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Employees_Other_Leave_Counts_Employee" Association="Self.FK_Employees_Other_Leave_Counts_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employees_Other_Leave_Counts" EntitySet="Employees_Other_Leave_Counts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Take_Leaves_Employee" Association="Self.FK_Employees_Take_Leaves_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employees_Take_Leaves" EntitySet="Employees_Take_Leaves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Take_Leaves_Leave" Association="Self.FK_Employees_Take_Leaves_Leave">
+      <End Role="Leave" EntitySet="Leave" />
+      <End Role="Employees_Take_Leaves" EntitySet="Employees_Take_Leaves" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

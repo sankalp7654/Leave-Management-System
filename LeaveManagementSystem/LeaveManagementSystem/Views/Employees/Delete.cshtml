@@ -1,0 +1,64 @@
+﻿@model LeaveManagementSystem.Models.Employee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type_of_institute)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type_of_institute)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.posting_place)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.posting_place)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.block_hq)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.block_hq)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

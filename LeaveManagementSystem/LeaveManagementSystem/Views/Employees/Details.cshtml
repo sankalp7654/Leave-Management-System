@@ -1,0 +1,75 @@
+﻿@model LeaveManagementSystem.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.post)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type_of_institute)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type_of_institute)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.posting_place)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.posting_place)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.block_hq)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.block_hq)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.code }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

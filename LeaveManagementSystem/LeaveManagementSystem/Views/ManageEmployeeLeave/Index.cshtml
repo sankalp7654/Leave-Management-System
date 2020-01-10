@@ -1,0 +1,185 @@
+﻿@model LeaveManagementSystem.Models.Employees_Take_Leaves
+@using LeaveManagementSystem.Models
+
+@{
+    ViewBag.Title = "Grant Leaves";
+    LeaveManagementDBEntities db = new LeaveManagementDBEntities();
+}
+
+<h2>Grant Leaves</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <h4>Enter the details to grant a leave</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.financial_year_start, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.financial_year_start, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.financial_year_start, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.financial_year_end, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.financial_year_end, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.financial_year_end, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emp_code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" value="NHM" class="form-control" tabindex="1" style="width:60px; display: inline-block;" readonly>
+                @Html.EditorFor(model => model.emp_code, new { htmlAttributes = new { @class = "form-control", id = "populate-values", tabindex = "2", style = "width:216px; display: inline-block;" } })
+                @Html.ValidationMessageFor(model => model.emp_code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Gender</label>
+            <div class="col-md-10">
+                <input type="text" id="gender" name="gender" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Post</label>
+            <div class="col-md-10">
+                <input type="text" id="post" name="post" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Type Of Institute</label>
+            <div class="col-md-10">
+                <input type="text" id="type_of_institute" name="type_of_institute" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Posting Place</label>
+            <div class="col-md-10">
+                <input type="text" id="posting_place" name="posting_place" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Block HQ</label>
+            <div class="col-md-10">
+                <input type="text" id="block_hq" name="block_hq" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.leave_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Leave_ID", new List<SelectListItem> {  }, "Enter Employee Code First", htmlAttributes: new { @class = "form-control", id = "leave-select-list"})
+                @Html.ValidationMessageFor(model => model.leave_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_from, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.date_from, new { @class = "form-control", name = "date_from", id = "datepicker", placeholder = "DATE : DD/MM/YYYY" })
+            @Html.ValidationMessageFor(model => model.date_from, "", new { @class = "text-danger" })
+        </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_to, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.date_to, new { @class = "form-control", name = "date_to", id = "datepicker", placeholder = "DATE : DD/MM/YYYY" })
+                @Html.ValidationMessageFor(model => model.date_to, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Grant" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
+
+
+@section Scripts {
+
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+
+    <script type="text/javascript" language="javascript">
+
+        $(document).ready(function () {
+
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+        });
+
+
+        var options = "";
+        $("#populate-values").on('change', function () {
+            var data = { code: "NHM" + $("#populate-values").val() };
+            
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("GetEmployeeDetails", "ManageEmployeeLeave")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    post.value = result.post;
+                    gender.value = result.gender;
+                    posting_place.value = result.posting_place;
+                    type_of_institute.value = result.type_of_institute;
+                    block_hq.value = result.block_hq;
+
+                    var options = "";
+                    if (result.gender == "Male") {
+                        options = "<option>Select Leave type</option>"
+                            + "<option value='2'>Paternity Leave</option>"
+                            + "<option value='4'>Medical Leave</option>";
+                        $("#leave-select-list").html(options);
+                    }
+                    else if (result.gender == "Female") {
+                        options = '<option>Select Leave type</option>'
+                            + '<option value="1">Maternity Leave</option>'
+                            + "<option value='3'>Child Adoption Leave</option>"
+                            + "<option value='4'>Medical Leave</option>";
+                        $("#leave-select-list").html(options);
+                    }
+                    else {
+                        options = '<option>Enter Employee Code First</option>';
+                        $("#leave-select-list").html(options);
+                    }
+                },
+                error: function (e) {
+                    alert("Invalid Employee Code. Try Again!");
+                }
+            });
+
+            
+        });
+    </script>
+
+}

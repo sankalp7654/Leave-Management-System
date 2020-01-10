@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d6464493a70f4e4eae220bfdbdfb8de9" Name="Diagram1">
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Employee" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Employees_Other_Leave_Counts" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Employees_Take_Leaves" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Leave" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Other_Leave_Counts_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Take_Leaves_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Take_Leaves_Leave" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
