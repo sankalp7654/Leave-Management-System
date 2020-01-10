@@ -4,13 +4,13 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="LeaveManagementDBModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
-          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="block_id" ColumnName="block_id" />
           <ScalarProperty Name="code" ColumnName="code" />
           <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="post" ColumnName="post" />
-          <ScalarProperty Name="type_of_institute" ColumnName="type_of_institute" />
-          <ScalarProperty Name="posting_place" ColumnName="posting_place" />
-          <ScalarProperty Name="block_hq" ColumnName="block_hq" />
+          <ScalarProperty Name="post_id" ColumnName="post_id" />
+          <ScalarProperty Name="type_of_institute_id" ColumnName="type_of_institute_id" />
+          <ScalarProperty Name="posting_place_id" ColumnName="posting_place_id" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -49,6 +49,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="LeaveManagementDBModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posting_Place">
+      <EntityTypeMapping TypeName="LeaveManagementDBModel.Posting_Place">
+        <MappingFragment StoreEntitySet="Posting_Place">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="LeaveManagementDBModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -57,6 +73,22 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Type_Of_Institute">
+      <EntityTypeMapping TypeName="LeaveManagementDBModel.Type_Of_Institute">
+        <MappingFragment StoreEntitySet="Type_Of_Institute">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Block_HQ">
+      <EntityTypeMapping TypeName="LeaveManagementDBModel.Block_HQ">
+        <MappingFragment StoreEntitySet="Block_HQ">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

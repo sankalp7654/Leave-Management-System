@@ -38,6 +38,10 @@ namespace LeaveManagementSystem.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
+            ViewBag.post_id = new SelectList(db.Posts, "id", "name");
+            ViewBag.type_of_institute_id = new SelectList(db.Type_Of_Institute, "id", "name");
+            ViewBag.posting_place_id = new SelectList(db.Posting_Place, "id", "name");
+            ViewBag.block_id = new SelectList(db.Block_HQ, "id", "name");
             return View();
         }
 
@@ -46,7 +50,7 @@ namespace LeaveManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "code,name,post,type_of_institute,posting_place,block_hq,gender")] Employee employee)
+        public ActionResult Create([Bind(Include = "code,name,post_id,block_id,type_of_institute_id,posting_place_id,gender")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +85,12 @@ namespace LeaveManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.post_id = new SelectList(db.Posts, "id", "name");
+            ViewBag.type_of_institute_id = new SelectList(db.Type_Of_Institute, "id", "name");
+            ViewBag.posting_place_id = new SelectList(db.Posting_Place, "id", "name");
+            ViewBag.block_id = new SelectList(db.Block_HQ, "id", "name");
+
             return View(employee);
         }
 
@@ -89,7 +99,7 @@ namespace LeaveManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "code,name,post,type_of_institute,posting_place,block_hq,gender")] Employee employee)
+        public ActionResult Edit([Bind(Include = "code,name,post_id,block_id,type_of_institute_id,posting_place_id,gender")] Employee employee)
         {
             if (ModelState.IsValid)
             {

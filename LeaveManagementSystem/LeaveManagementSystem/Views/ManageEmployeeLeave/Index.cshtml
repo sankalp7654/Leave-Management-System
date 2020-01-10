@@ -20,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.financial_year_start, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.financial_year_start, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.financial_year_start, new { htmlAttributes = new { @class = "form-control", id = "financial_year_start"} })
                 @Html.ValidationMessageFor(model => model.financial_year_start, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.financial_year_end, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.financial_year_end, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.financial_year_end, new { htmlAttributes = new { @class = "form-control", id = "financial_year_end" } })
                 @Html.ValidationMessageFor(model => model.financial_year_end, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,7 +37,7 @@
             @Html.LabelFor(model => model.emp_code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="text" value="NHM" class="form-control" tabindex="1" style="width:60px; display: inline-block;" readonly>
-                @Html.EditorFor(model => model.emp_code, new { htmlAttributes = new { @class = "form-control", id = "populate-values", tabindex = "2", style = "width:216px; display: inline-block;" } })
+                @Html.EditorFor(model => model.emp_code, new { htmlAttributes = new { @class = "form-control", id = "populate_values", tabindex = "2", style = "width:216px; display: inline-block;" } })
                 @Html.ValidationMessageFor(model => model.emp_code, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -138,8 +138,8 @@
 
 
         var options = "";
-        $("#populate-values").on('change', function () {
-            var data = { code: "NHM" + $("#populate-values").val() };
+        $("#populate_values").on('change', function () {
+            var data = { code: "NHM" + $("#populate_values").val() };
             
             $.ajax({
                 type: "post",
@@ -175,6 +175,18 @@
                 },
                 error: function (e) {
                     alert("Invalid Employee Code. Try Again!");
+                    post.value = "";
+                    gender.value = "";
+                    posting_place.value = "";
+                    type_of_institute.value = "";
+                    block_hq.value = "";
+                    financial_year_start.value = "";
+                    financial_year_end.value = "";
+                    populate_values.value = "";
+                    $('input[name=date_from').val('');
+                    $('input[name=date_to').val('');
+                    var options = '<option>Enter Employee Code First</option>';
+                    $("#leave-select-list").html(options);
                 }
             });
 

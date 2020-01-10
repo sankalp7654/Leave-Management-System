@@ -169,13 +169,15 @@ namespace LeaveManagementSystem.Controllers
                 {
                     return null;
                 }
-                var post = getRow.post;
+                
+                var post = db.Posts.FirstOrDefault(s => s.id == getRow.post_id).name;
                 var gender = getRow.gender;
-                var postingPlace = getRow.posting_place;
-                var typeOfInstitute = getRow.type_of_institute;
-                var blockHq = getRow.block_hq;
-
+                var postingPlace = db.Posting_Place.FirstOrDefault(s => s.id == getRow.posting_place_id).name;
+                var typeOfInstitute = db.Type_Of_Institute.FirstOrDefault(s => s.id == getRow.type_of_institute_id).name;
+                var blockHq = db.Block_HQ.FirstOrDefault(s => s.id == getRow.block_id).name;
+                
                 return Json(new { success = true, post = post, posting_place = postingPlace, gender = gender, type_of_institute = typeOfInstitute, block_hq = blockHq });
+                
             }
             return Json(new { success = false });
         }

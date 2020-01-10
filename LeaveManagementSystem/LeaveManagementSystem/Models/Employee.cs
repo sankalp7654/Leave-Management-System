@@ -22,14 +22,20 @@ namespace LeaveManagementSystem.Models
     
         public string code { get; set; }
         public string name { get; set; }
-        public string post { get; set; }
-        public string type_of_institute { get; set; }
-        public string posting_place { get; set; }
-        public string block_hq { get; set; }
+        public int post_id { get; set; }
+        public int type_of_institute_id { get; set; }
+        public int posting_place_id { get; set; }
         public string gender { get; set; }
+        public int block_id { get; set; }
     
+        public virtual Post Post { get; set; }
+        public virtual Posting_Place Posting_Place { get; set; }
+        public virtual Type_Of_Institute Type_Of_Institute { get; set; }
         public virtual Employees_Other_Leave_Counts Employees_Other_Leave_Counts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employees_Take_Leaves> Employees_Take_Leaves { get; set; }
+        public virtual Employee Employee1 { get; set; }
+        public virtual Employee Employee2 { get; set; }
+        public virtual Block_HQ Block_HQ { get; set; }
     }
 }

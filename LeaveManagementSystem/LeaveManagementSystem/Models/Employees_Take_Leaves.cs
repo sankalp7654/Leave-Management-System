@@ -17,13 +17,12 @@ namespace LeaveManagementSystem.Models
         public int id { get; set; }
         public string emp_code { get; set; }
         public int leave_id { get; set; }
-        public DateTime date_from { get; set; }
-        public DateTime date_to { get; set; }
+        public System.DateTime date_from { get; set; }
+        public System.DateTime date_to { get; set; }
         public int no_of_days { get; set; }
         public int financial_year_start { get; set; }
         public int financial_year_end { get; set; }
         public int absent_days { get; set; }
-        public string gender { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Leave Leave { get; set; }

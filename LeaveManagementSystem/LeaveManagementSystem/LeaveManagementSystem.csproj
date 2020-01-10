@@ -173,6 +173,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BlockHQController.cs" />
     <Compile Include="Controllers\CheckLeaveController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\GenerateReportController.cs" />
@@ -180,6 +181,9 @@
     <Compile Include="Controllers\LeavesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageEmployeeLeaveController.cs" />
+    <Compile Include="Controllers\PostingPlaceController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\TypeOfInstituteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +193,9 @@
       <DependentUpon>LeaveManagementDBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Block_HQ.cs">
+      <DependentUpon>LeaveManagementDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CheckLeaveModel.cs" />
     <Compile Include="Models\CheckLeaveViewModel.cs" />
     <Compile Include="Models\Employee.cs">
@@ -222,7 +229,16 @@
       <DependentUpon>LeaveManagementDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>LeaveManagementDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Posting_Place.cs">
+      <DependentUpon>LeaveManagementDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>LeaveManagementDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Type_Of_Institute.cs">
       <DependentUpon>LeaveManagementDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,13 +318,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\LeaveManagementDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LeaveManagementDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LeaveManagementDBModel.edmx.diagram">
-      <DependentUpon>LeaveManagementDBModel.edmx</DependentUpon>
-    </Content>
     <Content Include="LeaveManagementDBDataSet.xsc">
       <DependentUpon>LeaveManagementDBDataSet.xsd</DependentUpon>
     </Content>
@@ -319,6 +328,14 @@
     </None>
     <Content Include="LeaveManagementDBDataSet.xss">
       <DependentUpon>LeaveManagementDBDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="Report\NewReport.rdl" />
+    <EntityDeploy Include="Models\LeaveManagementDBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LeaveManagementDBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LeaveManagementDBModel.edmx.diagram">
+      <DependentUpon>LeaveManagementDBModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -4628,6 +4645,26 @@
     <Content Include="vendors\validator\validator.jquery.json" />
     <Content Include="Views\GenerateReport\Index.cshtml" />
     <Content Include="Views\GenerateReport\GetReports.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\PostingPlace\Create.cshtml" />
+    <Content Include="Views\PostingPlace\Delete.cshtml" />
+    <Content Include="Views\PostingPlace\Details.cshtml" />
+    <Content Include="Views\PostingPlace\Edit.cshtml" />
+    <Content Include="Views\PostingPlace\Index.cshtml" />
+    <Content Include="Views\TypeOfInstitute\Create.cshtml" />
+    <Content Include="Views\TypeOfInstitute\Delete.cshtml" />
+    <Content Include="Views\TypeOfInstitute\Details.cshtml" />
+    <Content Include="Views\TypeOfInstitute\Edit.cshtml" />
+    <Content Include="Views\TypeOfInstitute\Index.cshtml" />
+    <Content Include="Views\BlockHQ\Create.cshtml" />
+    <Content Include="Views\BlockHQ\Delete.cshtml" />
+    <Content Include="Views\BlockHQ\Details.cshtml" />
+    <Content Include="Views\BlockHQ\Edit.cshtml" />
+    <Content Include="Views\BlockHQ\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

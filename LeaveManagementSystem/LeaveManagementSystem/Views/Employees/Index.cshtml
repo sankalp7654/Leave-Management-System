@@ -1,7 +1,18 @@
 ﻿@model IEnumerable<LeaveManagementSystem.Models.Employee>
+@using LeaveManagementSystem.Models
 
 @{
     ViewBag.Title = "Employees List";
+    LeaveManagementDBEntities db = new LeaveManagementDBEntities();
+/*
+    var getRow = db.Employees.SingleOrDefault(s => s.code == "nnn");
+
+    var post = db.Posts.FirstOrDefault(s => s.id == getRow.post_id).name;
+    var gender = getRow.gender;
+    var postingPlace = db.Posting_Place.FirstOrDefault(s => s.id == getRow.posting_place_id).name;
+    var typeOfInstitute = db.Type_Of_Institute.FirstOrDefault(s => s.id == getRow.type_of_institute_id).name;
+    var blockHq = db.Block_HQ.FirstOrDefault(s => s.id == getRow.block_id).name;
+    */
 }
 
 <h2>Employees List</h2>
@@ -47,16 +58,16 @@
             @Html.DisplayFor(modelItem => item.gender)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.post)
+            @Html.DisplayFor(modelItem => item.post_id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.type_of_institute)
+            @Html.DisplayFor(modelItem => item.type_of_institute_id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.posting_place)
+            @Html.DisplayFor(modelItem => item.posting_place_id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.block_hq)
+            @Html.DisplayFor(modelItem => item.block_id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.code }) |

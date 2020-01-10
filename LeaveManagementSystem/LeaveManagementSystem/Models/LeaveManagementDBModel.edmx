@@ -5,17 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="LeaveManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Block_HQ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="code" />
           </Key>
           <Property Name="code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="post" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="type_of_institute" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="posting_place" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="block_hq" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="gender" Type="varchar" MaxLength="10" />
+          <Property Name="post_id" Type="int" Nullable="false" />
+          <Property Name="block_id" Type="int" Nullable="false" />
+          <Property Name="type_of_institute_id" Type="int" Nullable="false" />
+          <Property Name="posting_place_id" Type="int" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Employees_Other_Leave_Counts">
           <Key>
@@ -49,6 +56,20 @@
           <Property Name="max_days" Type="int" Nullable="false" />
           <Property Name="max_count" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posting_Place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -59,6 +80,61 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Type_Of_Institute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_Block_HQ">
+          <End Role="Block_HQ" Type="Self.Block_HQ" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Block_HQ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="block_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Posting_Place">
+          <End Role="Posting_Place" Type="Self.Posting_Place" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posting_Place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="posting_place_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Type_Of_Institute">
+          <End Role="Type_Of_Institute" Type="Self.Type_Of_Institute" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Of_Institute">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="type_of_institute_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_Other_Leave_Counts_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Employees_Other_Leave_Counts" Type="Self.Employees_Other_Leave_Counts" Multiplicity="0..1" />
@@ -96,11 +172,31 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LeaveManagementDBModelStoreContainer">
+          <EntitySet Name="Block_HQ" EntityType="Self.Block_HQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees_Other_Leave_Counts" EntityType="Self.Employees_Other_Leave_Counts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees_Take_Leaves" EntityType="Self.Employees_Take_Leaves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posting_Place" EntityType="Self.Posting_Place" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Of_Institute" EntityType="Self.Type_Of_Institute" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_Block_HQ" Association="Self.FK_Employee_Block_HQ">
+            <End Role="Block_HQ" EntitySet="Block_HQ" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Posting_Place" Association="Self.FK_Employee_Posting_Place">
+            <End Role="Posting_Place" EntitySet="Posting_Place" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Type_Of_Institute" Association="Self.FK_Employee_Type_Of_Institute">
+            <End Role="Type_Of_Institute" EntitySet="Type_Of_Institute" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_Other_Leave_Counts_Employee" Association="Self.FK_Employees_Other_Leave_Counts_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Employees_Other_Leave_Counts" EntitySet="Employees_Other_Leave_Counts" />
@@ -124,13 +220,19 @@
           </Key>
           <Property Name="code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="post" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="type_of_institute" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="posting_place" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="block_hq" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="post_id" Type="Int32" Nullable="false" />
+          <Property Name="type_of_institute_id" Type="Int32" Nullable="false" />
+          <Property Name="posting_place_id" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Employee_Post" FromRole="Employee" ToRole="Post" />
+          <NavigationProperty Name="Posting_Place" Relationship="Self.FK_Employee_Posting_Place" FromRole="Employee" ToRole="Posting_Place" />
+          <NavigationProperty Name="Type_Of_Institute" Relationship="Self.FK_Employee_Type_Of_Institute" FromRole="Employee" ToRole="Type_Of_Institute" />
           <NavigationProperty Name="Employees_Other_Leave_Counts" Relationship="Self.FK_Employees_Other_Leave_Counts_Employee" FromRole="Employee" ToRole="Employees_Other_Leave_Counts" />
           <NavigationProperty Name="Employees_Take_Leaves" Relationship="Self.FK_Employees_Take_Leaves_Employee" FromRole="Employee" ToRole="Employees_Take_Leaves" />
-          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="block_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee1" Relationship="LeaveManagementDBModel.FK_Employee_Employee" FromRole="Employee" ToRole="Employee1" />
+          <NavigationProperty Name="Employee2" Relationship="LeaveManagementDBModel.FK_Employee_Employee" FromRole="Employee1" ToRole="Employee" />
+          <NavigationProperty Name="Block_HQ" Relationship="LeaveManagementDBModel.FK_Employee_Block_HQ" FromRole="Employee" ToRole="Block_HQ" />
         </EntityType>
         <EntityType Name="Employees_Other_Leave_Counts">
           <Key>
@@ -168,6 +270,22 @@
           <Property Name="max_count" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employees_Take_Leaves" Relationship="Self.FK_Employees_Take_Leaves_Leave" FromRole="Leave" ToRole="Employees_Take_Leaves" />
         </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Post" FromRole="Post" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Posting_Place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Posting_Place" FromRole="Posting_Place" ToRole="Employee" />
+        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -178,6 +296,50 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Type_Of_Institute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Type_Of_Institute" FromRole="Type_Of_Institute" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Posting_Place">
+          <End Role="Posting_Place" Type="Self.Posting_Place" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posting_Place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="posting_place_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Type_Of_Institute">
+          <End Role="Type_Of_Institute" Type="Self.Type_Of_Institute" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Of_Institute">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="type_of_institute_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_Other_Leave_Counts_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Employees_Other_Leave_Counts" Type="Self.Employees_Other_Leave_Counts" Multiplicity="0..1" />
@@ -219,7 +381,22 @@
           <EntitySet Name="Employees_Other_Leave_Counts" EntityType="Self.Employees_Other_Leave_Counts" />
           <EntitySet Name="Employees_Take_Leaves" EntityType="Self.Employees_Take_Leaves" />
           <EntitySet Name="Leaves" EntityType="Self.Leave" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <EntitySet Name="Posting_Place" EntityType="Self.Posting_Place" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Type_Of_Institute" EntityType="Self.Type_Of_Institute" />
+          <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Posting_Place" Association="Self.FK_Employee_Posting_Place">
+            <End Role="Posting_Place" EntitySet="Posting_Place" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Type_Of_Institute" Association="Self.FK_Employee_Type_Of_Institute">
+            <End Role="Type_Of_Institute" EntitySet="Type_Of_Institute" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_Other_Leave_Counts_Employee" Association="Self.FK_Employees_Other_Leave_Counts_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Employees_Other_Leave_Counts" EntitySet="Employees_Other_Leave_Counts" />
@@ -232,7 +409,48 @@
             <End Role="Leave" EntitySet="Leaves" />
             <End Role="Employees_Take_Leaves" EntitySet="Employees_Take_Leaves" />
           </AssociationSet>
+          <EntitySet Name="Block_HQ" EntityType="LeaveManagementDBModel.Block_HQ" />
+          <AssociationSet Name="FK_Employee_Employee" Association="LeaveManagementDBModel.FK_Employee_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Employee1" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Block_HQ" Association="LeaveManagementDBModel.FK_Employee_Block_HQ">
+            <End Role="Block_HQ" EntitySet="Block_HQ" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Block_HQ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="LeaveManagementDBModel.FK_Employee_Block_HQ" FromRole="Block_HQ" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_Employee">
+          <End Type="LeaveManagementDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="LeaveManagementDBModel.Employee" Role="Employee1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Employee1">
+              <PropertyRef Name="code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Block_HQ">
+          <End Type="LeaveManagementDBModel.Block_HQ" Role="Block_HQ" Multiplicity="1" />
+          <End Type="LeaveManagementDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Block_HQ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="block_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -242,13 +460,13 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="LeaveManagementDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="block_id" ColumnName="block_id" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="post" ColumnName="post" />
-                <ScalarProperty Name="type_of_institute" ColumnName="type_of_institute" />
-                <ScalarProperty Name="posting_place" ColumnName="posting_place" />
-                <ScalarProperty Name="block_hq" ColumnName="block_hq" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="type_of_institute_id" ColumnName="type_of_institute_id" />
+                <ScalarProperty Name="posting_place_id" ColumnName="posting_place_id" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -287,6 +505,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="LeaveManagementDBModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posting_Place">
+            <EntityTypeMapping TypeName="LeaveManagementDBModel.Posting_Place">
+              <MappingFragment StoreEntitySet="Posting_Place">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="LeaveManagementDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -295,6 +529,22 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Of_Institute">
+            <EntityTypeMapping TypeName="LeaveManagementDBModel.Type_Of_Institute">
+              <MappingFragment StoreEntitySet="Type_Of_Institute">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Block_HQ">
+            <EntityTypeMapping TypeName="LeaveManagementDBModel.Block_HQ">
+              <MappingFragment StoreEntitySet="Block_HQ">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

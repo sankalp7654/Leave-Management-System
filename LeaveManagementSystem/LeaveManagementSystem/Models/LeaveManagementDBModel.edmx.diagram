@@ -4,15 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d6464493a70f4e4eae220bfdbdfb8de9" Name="Diagram1">
-        <EntityTypeShape EntityType="LeaveManagementDBModel.Employee" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeaveManagementDBModel.Employees_Other_Leave_Counts" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeaveManagementDBModel.Employees_Take_Leaves" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeaveManagementDBModel.Leave" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeaveManagementDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+      <Diagram DiagramId="6e58112f309a4c55a9de2db48453b158" Name="Diagram1">
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Employee" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Employees_Other_Leave_Counts" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Employees_Take_Leaves" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Leave" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Post" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Posting_Place" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Type_Of_Institute" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Posting_Place" ManuallyRouted="false" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Type_Of_Institute" ManuallyRouted="false" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Other_Leave_Counts_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Take_Leaves_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Take_Leaves_Leave" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Block_HQ" Width="1.5" PointX="5.375" PointY="6.75" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Employee" />
+        <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Block_HQ" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
