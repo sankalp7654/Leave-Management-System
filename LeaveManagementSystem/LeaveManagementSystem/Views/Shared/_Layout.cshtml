@@ -7,6 +7,57 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <style>
+        #company:hover {
+            background-color: forestgreen;
+        }
+        .nav-item a {
+            color: white;
+        }
+        .navbar-header   .navbar-brand  {
+            color: white;
+        }
+        
+        .nav-item:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+     
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                float: none;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,22 +70,38 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Sansoft", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Sansoft", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "company" })
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
-                    <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
-                    <li>@Html.ActionLink("Institute", "Index", "TypeOfInstitute")</li>
-                    <li>@Html.ActionLink("Posting Place", "Index", "PostingPlace")</li>
-                    <li>@Html.ActionLink("Block HQ", "Index", "BlockHQ")</li>
-                    <li>@Html.ActionLink("Leaves", "Index", "Leaves")</li>
-                    <li>@Html.ActionLink("Grant Leaves", "Index", "ManageEmployeeLeave")</li>
-                    <li>@Html.ActionLink("Check Leaves", "Index", "CheckLeave")</li>
-                    <li>@Html.ActionLink("Generate Report", "Index", "GenerateReport")</li>
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                    <li class="nav-item dropdown">
+                        <button class="dropbtn">
+                            Add Records  &#9660;
+                        </button>
+
+                        <div class="dropdown-content" aria-labelledby="navbarDropdownMenuLink">
+                            <a href="/Employees/Index">Employees</a>
+                            <a href="/Posts/Index">Posts</a>
+                            <a href="/TypeOfInstitute/Index">Institute</a>
+                            <a href="/PostingPlace/Index">Posting Place</a>
+                            <a href="/BlockHQ/Index">Block HQ</a>
+                            <a href="/Leaves/Index">Leaves</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="/ManageEmployeeLeave/Index" style="color:white; font-size: 16px;">Grant Leaves</a>
+                    <li class="nav-item"><a href="/CheckLeave/Index" style="color:white; font-size: 16px;">Check Leaves</a>
+                    <li class="nav-item"><a href="/GenerateReport/Index" style="color:white; font-size: 16px;">Generate Report</a>
+                    <li class="nav-item"><a href="/Home/Contact" style="color:white; font-size: 16px;">Contact Us</a>
                 </ul>
-                @Html.Partial("_LoginPartial")
+
+             @*
+                 This is a commented section...
+                 Uncomment this to view Login and Register section in the nav bar
+
+                 @Html.Partial("_LoginPartial")
+             *@
+
             </div>
         </div>
     </div>

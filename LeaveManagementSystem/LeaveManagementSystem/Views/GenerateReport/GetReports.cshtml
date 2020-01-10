@@ -18,12 +18,10 @@
 <html lang="en">
 <head>
 
-    <!-- Bootstrap -->
-    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+   
     <!-- Font Awesome -->
     <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+  
     <!-- iCheck -->
     <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
@@ -36,11 +34,9 @@
 
 </head>
 
-<body class="nav-md">
-    <div class="container body">
-        <div class="main_container">
+<body>
 
-            <h2>GetReports</h2>
+            <h2>Get Reports</h2>
 
             <!-- page content -->
             <div class="right_col" role="main">
@@ -132,7 +128,7 @@
 
                 </div>
             </div>
-        </div>
+   
 
         <div style="padding:10px; border:1px solid black">
             <div><a href="@Url.Action("Report", "GenerateReport", new { id = "PDF" })">Get Report PDF</a></div>
@@ -141,11 +137,12 @@
         </div>
         <!-- /page content -->
         <div>
+            <br/>
             @Html.ActionLink("Back to List", "Index", "Home")
         </div>
 
 
-    </div>
+  
 
 
     <!-- jQuery -->
