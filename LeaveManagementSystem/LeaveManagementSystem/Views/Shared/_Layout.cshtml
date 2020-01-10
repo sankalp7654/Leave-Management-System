@@ -11,6 +11,10 @@
         #company:hover {
             background-color: forestgreen;
         }
+
+        #contact:hover {
+            background-color: #ada316;
+        }
         .nav-item a {
             color: white;
         }
@@ -92,7 +96,7 @@
                     <li class="nav-item"><a href="/ManageEmployeeLeave/Index" style="color:white; font-size: 16px;">Grant Leaves</a>
                     <li class="nav-item"><a href="/CheckLeave/Index" style="color:white; font-size: 16px;">Check Leaves</a>
                     <li class="nav-item"><a href="/GenerateReport/Index" style="color:white; font-size: 16px;">Generate Report</a>
-                    <li class="nav-item"><a href="/Home/Contact" style="color:white; font-size: 16px;">Contact Us</a>
+                    <li class="nav-item"><a href="/Home/Contact" id="contact" style="color:white; font-size: 16px;">Contact Us</a>
                 </ul>
 
              @*
@@ -109,7 +113,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Leave Management System, C.M.H.O Office Satna</p>
+            <p>&copy; @DateTime.Now.Year - Sansoft</p>
         </footer>
     </div>
 

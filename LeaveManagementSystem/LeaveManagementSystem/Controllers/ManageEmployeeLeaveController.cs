@@ -43,7 +43,7 @@ namespace LeaveManagementSystem.Controllers
             bool flag = false;
 
             // Maternity Leave Count
-            if(employeeTakeLeave.leave_id == 1)
+            if (employeeTakeLeave.leave_id == 1)
             {
                 // Select the particular row
                 var getRow = db.Employees_Other_Leave_Counts.Where(s => s.maternity_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
@@ -63,19 +63,19 @@ namespace LeaveManagementSystem.Controllers
                     // Marking the absent if employee applies for Maternity Leave > 180 days
                     if (employeeTakeLeave.no_of_days > 180)
                     {
-                       employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 180;
+                        employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 180;
                     }
                 }
                 else
                 {
                     // leave cannot be granted
-                    
+
 
                 }
 
             }
             // Paternity Leave Count
-            else if (employeeTakeLeave.leave_id == 2) 
+            else if (employeeTakeLeave.leave_id == 2)
             {
                 // Select the particular row
                 var getRow = db.Employees_Other_Leave_Counts.Where(s => s.paternity_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
@@ -105,12 +105,12 @@ namespace LeaveManagementSystem.Controllers
                 else
                 {
                     // leave cannot be granted
-                    
+
                 }
 
             }
             // Child Adoption Leave Count
-            else if(employeeTakeLeave.leave_id == 3)
+            else if (employeeTakeLeave.leave_id == 3)
             {
                 // Select the particular row
                 var getRow = db.Employees_Other_Leave_Counts.Where(s => s.child_adoption_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
@@ -139,11 +139,45 @@ namespace LeaveManagementSystem.Controllers
                 else
                 {
                     // leave cannot be granted
-                    
+
                 }
 
             }
+            // Medical Leave Count
+            else if (employeeTakeLeave.leave_id == 4)
+            {
+                var getMedicalLeaveOfEmployee = db.Employees_Take_Leaves.Where(s => s.emp_code == employeeTakeLeave.emp_code).Where(s => s.leave_id == employeeTakeLeave.leave_id).Where(s => s.financial_year_start == employeeTakeLeave.financial_year_start).Where(s => s.financial_year_end == employeeTakeLeave.financial_year_end).ToList();
+                var leavesTakenForDays = 0;
 
+                for(int i = 0; i < getMedicalLeaveOfEmployee.Count(); i++)
+                {
+                    leavesTakenForDays += getMedicalLeaveOfEmployee[i].no_of_days;
+                }
+
+                if((getMedicalLeaveOfEmployee == null) || (leavesTakenForDays < 15))
+                {
+                    if(employeeTakeLeave.no_of_days > 15)
+                    {
+                        flag = false;
+                        // employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 15;
+                    }
+                    else
+                    {
+                        flag = true;
+                    }
+
+                }
+                else
+                {
+                    // medical leave cannot be granted
+                    if(flag == false)
+                        ViewBag.result = "Maximum Number of Medical Leaves reached!";
+                    ViewBag.result = "Maximum Number of Medical Leaves reached!";
+                    return View();
+                }
+
+            }
+            
             // Finally persisting the row values inside Employee Take Leave database
             if (flag)
             {
