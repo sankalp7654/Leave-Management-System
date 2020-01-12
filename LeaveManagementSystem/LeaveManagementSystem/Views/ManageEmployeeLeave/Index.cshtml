@@ -5,10 +5,48 @@
     ViewBag.Title = "Grant Leaves";
     LeaveManagementDBEntities db = new LeaveManagementDBEntities();
 }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Datepicker - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $(function () {
+                $("#datepicker1").datepicker({
+                    format: 'DD-MM-YYYY',
+                    maxDate: new Date(),
+                    autoclose: true,
+                    yearRange: $("#financial_year_start").val() + ':' + $("#financial_year_end").val()
+                });
+            });
+
+        });
+
+        $(document).ready(function () {
+            $(function () {
+                $("#datepicker2").datepicker({
+                    format: 'DD-MM-YYYY',
+                    maxDate: new Date(),
+                    autoclose: true,
+                    yearRange: $("#financial_year_start").val() + ':' + $("#financial_year_end").val()
+                });
+            });
+
+        });
+
+    </script>
+</head>
 
 <h1>@ViewBag.result</h1>
 
 <h2>Grant Leaves</h2>
+
+
 
 @using (Html.BeginForm())
 {
@@ -22,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.financial_year_start, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.financial_year_start, new { htmlAttributes = new { @class = "form-control", id = "financial_year_start"} })
+                @Html.EditorFor(model => model.financial_year_start, new { htmlAttributes = new { @class = "form-control", id = "financial_year_start" } })
                 @Html.ValidationMessageFor(model => model.financial_year_start, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -82,7 +120,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.leave_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Leave_ID", new List<SelectListItem> {  }, "Enter Employee Code First", htmlAttributes: new { @class = "form-control", id = "leave-select-list"})
+                @Html.DropDownList("Leave_ID", new List<SelectListItem> { }, "Enter Employee Code First", htmlAttributes: new { @class = "form-control", id = "leave-select-list" })
                 @Html.ValidationMessageFor(model => model.leave_id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -91,15 +129,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.date_from, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.date_from, new { @class = "form-control", name = "date_from", id = "datepicker", placeholder = "DATE : DD/MM/YYYY" })
-            @Html.ValidationMessageFor(model => model.date_from, "", new { @class = "text-danger" })
-        </div>
+                @Html.TextBoxFor(model => model.date_from, new { @class = "form-control", name = "date_from", id = "datepicker1", placeholder = "DATE : DD/MM/YYYY" })
+                @Html.ValidationMessageFor(model => model.date_from, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.date_to, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.date_to, new { @class = "form-control", name = "date_to", id = "datepicker", placeholder = "DATE : DD/MM/YYYY" })
+                @Html.TextBoxFor(model => model.date_to, new { @class = "form-control", name = "date_to", id = "datepicker2", placeholder = "DATE : DD/MM/YYYY" })
                 @Html.ValidationMessageFor(model => model.date_to, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -109,6 +147,10 @@
                 <input type="submit" value="Grant" class="btn btn-default" />
             </div>
         </div>
+
+        <input type="hidden" id="financial_year_start" name="financial_year_start" value="2000">
+        <input type="hidden" id="financial_year_end" name="financial_year_end" value="2001">
+
 
     </div>
 }
@@ -127,22 +169,11 @@
 
     <script type="text/javascript" language="javascript">
 
-        $(document).ready(function () {
-
-            $('input[type=datetime]').datepicker({
-                dateFormat: "dd/M/yy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-60:+0"
-            });
-
-        });
-
 
         var options = "";
         $("#populate_values").on('change', function () {
             var data = { code: "NHM" + $("#populate_values").val() };
-            
+
             $.ajax({
                 type: "post",
                 url: '@Url.Action("GetEmployeeDetails", "ManageEmployeeLeave")',
@@ -155,6 +186,8 @@
                     posting_place.value = result.posting_place;
                     type_of_institute.value = result.type_of_institute;
                     block_hq.value = result.block_hq;
+                    financial_year_start.value = result.financial_year_start;
+                    financial_year_end.value = result.financial_year_end;
 
                     var options = "";
                     if (result.gender == "Male") {
@@ -191,9 +224,21 @@
                     $("#leave-select-list").html(options);
                 }
             });
-
-            
         });
+
+
+
+
     </script>
 
+}
+
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
 }

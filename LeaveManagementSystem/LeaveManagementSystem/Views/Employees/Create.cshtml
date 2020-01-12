@@ -7,78 +7,81 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Employee</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
+        <h4>Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("gender", new List<SelectListItem>{ new SelectListItem { Text = "Male", Value = "Male" },
-                                                                   new SelectListItem { Text = "Female", Value = "Female" },
-                                                                 }, "Select Gender", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" value="NHM" class="form-control" tabindex="1" style="width:60px; display: inline-block;" readonly>
+                @Html.EditorFor(model => model.code
+           , new { htmlAttributes = new { @class = "form-control", id = "populate_values", tabindex = "2", style = "width:216px; display: inline-block;" } })
+                @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.post_id, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("post_id", null, "Select Posts", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.post_id, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.type_of_institute_id, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("type_of_institute_id", null, "Select Type of Institute", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.type_of_institute_id, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("gender", new List<SelectListItem>{ new SelectListItem { Text = "Male", Value = "Male" },
+                                                                       new SelectListItem { Text = "Female", Value = "Female" },
+                                                                     }, "Select Gender", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.posting_place_id, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("posting_place_id", null, "Select Posting Place", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.posting_place_id, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.post_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("post_id", null, "Select Posts", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.post_id, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.block_id, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("block_id", null, "Select Block HQ", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.block_id, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.block_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("block_id", null, "Select Block HQ", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.block_id, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.type_of_institute_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("type_of_institute_id", null, "Select Type of Institute", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.type_of_institute_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.posting_place_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("posting_place_id", null, "Select Posting Place", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.posting_place_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
@@ -87,4 +90,69 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript" language="javascript">
+
+
+        var options = "";
+        $("#populate_values").on('change', function () {
+            var data = { code: "NHM" + $("#populate_values").val() };
+
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("GetInstitutesList", "Employees")',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    post.value = result.post;
+                    gender.value = result.gender;
+                    posting_place.value = result.posting_place;
+                    type_of_institute.value = result.type_of_institute;
+                    block_hq.value = result.block_hq;
+                    financial_year_start.value = result.financial_year_start;
+                    financial_year_end.value = result.financial_year_end;
+
+                    var options = "";
+                    if (result.gender == "Male") {
+                        options = "<option>Select Leave type</option>"
+                            + "<option value='2'>Paternity Leave</option>"
+                            + "<option value='4'>Medical Leave</option>";
+                        $("#leave-select-list").html(options);
+                    }
+                    else if (result.gender == "Female") {
+                        options = '<option>Select Leave type</option>'
+                            + '<option value="1">Maternity Leave</option>'
+                            + "<option value='3'>Child Adoption Leave</option>"
+                            + "<option value='4'>Medical Leave</option>";
+                        $("#leave-select-list").html(options);
+                    }
+                    else {
+                        options = '<option>Enter Employee Code First</option>';
+                        $("#leave-select-list").html(options);
+                    }
+                },
+                error: function (e) {
+                    alert("Invalid Employee Code. Try Again!");
+                    post.value = "";
+                    gender.value = "";
+                    posting_place.value = "";
+                    type_of_institute.value = "";
+                    block_hq.value = "";
+                    financial_year_start.value = "";
+                    financial_year_end.value = "";
+                    populate_values.value = "";
+                    $('input[name=date_from').val('');
+                    $('input[name=date_to').val('');
+                    var options = '<option>Enter Employee Code First</option>';
+                    $("#leave-select-list").html(options);
+                }
+            });
+        });
+
+
+
+
+    </script>
+
 }

@@ -42,152 +42,149 @@ namespace LeaveManagementSystem.Controllers
 
             bool flag = false;
 
-            // Maternity Leave Count
-            if (employeeTakeLeave.leave_id == 1)
-            {
-                // Select the particular row
-                var getRow = db.Employees_Other_Leave_Counts.Where(s => s.maternity_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
+            // Additional Conditional checks for Financial Year 
+ //           if((etl.financial_year_start == etl.date_from.Year) && (etl.financial_year_end == etl.date_to.Year) && (etl.date_from.Day >= 1) && (etl.date_from.Month >= 4) && (etl.date_to.Day <= 31) && (etl.date_to.Month <= 3))
+ //           {
 
-                // Select the particular column value from the selected Row
-                int maternityLeaveCount = getRow.maternity_leave_count_left;
-
-                if (maternityLeaveCount != 0)
+                var leaveName = db.Leaves.FirstOrDefault(s => s.id == employeeTakeLeave.leave_id).name.ToString().ToLower();
+                // Maternity Leave Count
+                if (leaveName.Equals("maternity leave"))
                 {
-                    if (ModelState.IsValid)
+                    // Select the particular row
+                    var getRow = db.Employees_Other_Leave_Counts.Where(s => s.maternity_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
+
+                    // Select the particular column value from the selected Row
+                    int maternityLeaveCount = getRow.maternity_leave_count_left;
+
+                    if (maternityLeaveCount != 0)
                     {
-                        db.Employees_Other_Leave_Counts.Where(s => s.code == employeeTakeLeave.emp_code).ToList().ForEach(a => a.maternity_leave_count_left = maternityLeaveCount - 1);
-                        db.SaveChanges();
-                        flag = true;
+                        if (ModelState.IsValid)
+                        {
+                            db.Employees_Other_Leave_Counts.Where(s => s.code == employeeTakeLeave.emp_code).ToList().ForEach(a => a.maternity_leave_count_left = maternityLeaveCount - 1);
+                            db.SaveChanges();
+                            flag = true;
+                        }
+
+                        // Marking the absent if employee applies for Maternity Leave > 180 days
+                        if (employeeTakeLeave.no_of_days > 180)
+                        {
+                            employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 180;
+                        }
+                    }
+                    else
+                    {
+                        // leave cannot be granted
+
+                        TempData["message"] = "Cannot grant more leaves!!! Already 2 Maternity Leaves are granted to " + employeeTakeLeave.emp_code;
+                        return RedirectToAction("Index");
                     }
 
-                    // Marking the absent if employee applies for Maternity Leave > 180 days
-                    if (employeeTakeLeave.no_of_days > 180)
-                    {
-                        employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 180;
-                    }
                 }
-                else
+                // Paternity Leave Count
+                else if (leaveName.Equals("paternity leave"))
                 {
-                    // leave cannot be granted
+                    // Select the particular row
+                    var getRow = db.Employees_Other_Leave_Counts.Where(s => s.paternity_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
 
+                    // Select the particular column value from the selected Row
+                    int paternityLeaveCount = getRow.paternity_leave_count_left;
 
-                }
+                    employeeTakeLeave.absent_days = 0;
 
-            }
-            // Paternity Leave Count
-            else if (employeeTakeLeave.leave_id == 2)
-            {
-                // Select the particular row
-                var getRow = db.Employees_Other_Leave_Counts.Where(s => s.paternity_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
-
-                // Select the particular column value from the selected Row
-                int paternityLeaveCount = getRow.paternity_leave_count_left;
-
-                employeeTakeLeave.absent_days = 0;
-
-                if (paternityLeaveCount != 0)
-                {
-                    if (ModelState.IsValid)
+                    if (paternityLeaveCount != 0)
                     {
+                        if (ModelState.IsValid)
+                        {
 
-                        db.Employees_Other_Leave_Counts.Where(s => s.code == employeeTakeLeave.emp_code).ToList().ForEach(a => a.paternity_leave_count_left = paternityLeaveCount - 1);
-                        db.SaveChanges();
-                        flag = true;
+                            db.Employees_Other_Leave_Counts.Where(s => s.code == employeeTakeLeave.emp_code).ToList().ForEach(a => a.paternity_leave_count_left = paternityLeaveCount - 1);
+                            db.SaveChanges();
+                            flag = true;
+
+                        }
+
+                        // Marking the absent if employee applies for Paternity Leave > 15 days
+                        if (employeeTakeLeave.no_of_days > 15)
+                        {
+                            employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 15;
+                        }
+                    }
+                    else
+                    {
+                        // leave cannot be granted
+                        TempData["message"] = "Cannot grant more leaves!!! Already 2 Paternity Leaves are granted to " + employeeTakeLeave.emp_code;
+                        return RedirectToAction("Index");
 
                     }
 
-                    // Marking the absent if employee applies for Paternity Leave > 15 days
+                }
+                // Child Adoption Leave Count
+                else if (leaveName.Equals("child adoption leave"))
+                {
+                    // Select the particular row
+                    var getRow = db.Employees_Other_Leave_Counts.Where(s => s.child_adoption_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
+
+                    // Select the particular column value from the selected Row
+                    int childAdoptionLeaveCount = getRow.child_adoption_leave_count_left;
+
+                    employeeTakeLeave.absent_days = 0;
+
+                    if (childAdoptionLeaveCount != 0)
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            db.Employees_Other_Leave_Counts.Where(s => s.code == employeeTakeLeave.emp_code).ToList().ForEach(a => a.child_adoption_leave_count_left = childAdoptionLeaveCount - 1);
+                            db.SaveChanges();
+                            flag = true;
+
+                        }
+
+                        // Marking the absent if employee applies for Child Adoption Leave > 40 days
+                        if (employeeTakeLeave.no_of_days > 40)
+                        {
+                            employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 40;
+                        }
+                    }
+                    else
+                    {
+                        // leave cannot be granted
+                        TempData["message"] = "Cannot grant more leaves!!! Already 2 Child Adoption Leaves are granted to " + employeeTakeLeave.emp_code;
+                        return RedirectToAction("Index");
+                    }
+
+                }
+                // Medical Leave Count
+                else if (leaveName.Equals("medical leave"))
+                {
+                    var getMedicalLeaveOfEmployee = db.Employees_Take_Leaves.Where(s => s.emp_code == employeeTakeLeave.emp_code).Where(s => s.leave_id == employeeTakeLeave.leave_id).Where(s => s.financial_year_start == employeeTakeLeave.financial_year_start).Where(s => s.financial_year_end == employeeTakeLeave.financial_year_end).ToList();
+                    var leavesTakenForDays = 0;
+
+                    for (int i = 0; i < getMedicalLeaveOfEmployee.Count(); i++)
+                    {
+                        leavesTakenForDays += getMedicalLeaveOfEmployee[i].no_of_days;
+                    }
+
+                    //if ((getMedicalLeaveOfEmployee == null) || (leavesTakenForDays < 15))
+                    //{
                     if (employeeTakeLeave.no_of_days > 15)
                     {
                         employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 15;
                     }
-                }
-                else
-                {
-                    // leave cannot be granted
+                    flag = true;
 
                 }
 
-            }
-            // Child Adoption Leave Count
-            else if (employeeTakeLeave.leave_id == 3)
-            {
-                // Select the particular row
-                var getRow = db.Employees_Other_Leave_Counts.Where(s => s.child_adoption_leave_count_left >= 0).SingleOrDefault(s => s.code == employeeTakeLeave.emp_code);
-
-                // Select the particular column value from the selected Row
-                int childAdoptionLeaveCount = getRow.child_adoption_leave_count_left;
-
-                employeeTakeLeave.absent_days = 0;
-
-                if (childAdoptionLeaveCount != 0)
+                // Finally persisting the row values inside Employee Take Leave database
+                if (flag)
                 {
                     if (ModelState.IsValid)
                     {
-                        db.Employees_Other_Leave_Counts.Where(s => s.code == employeeTakeLeave.emp_code).ToList().ForEach(a => a.child_adoption_leave_count_left = childAdoptionLeaveCount - 1);
+                        db.Employees_Take_Leaves.Add(employeeTakeLeave);
                         db.SaveChanges();
-                        flag = true;
-
-                    }
-
-                    // Marking the absent if employee applies for Child Adoption Leave > 40 days
-                    if (employeeTakeLeave.no_of_days > 40)
-                    {
-                        employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 40;
+                        TempData["message"] = "Leaves granted Successfully!!!. " + leaveName + "s are granted to " + employeeTakeLeave.emp_code ;
+                        return RedirectToAction("Index");
                     }
                 }
-                else
-                {
-                    // leave cannot be granted
-
-                }
-
-            }
-            // Medical Leave Count
-            else if (employeeTakeLeave.leave_id == 4)
-            {
-                var getMedicalLeaveOfEmployee = db.Employees_Take_Leaves.Where(s => s.emp_code == employeeTakeLeave.emp_code).Where(s => s.leave_id == employeeTakeLeave.leave_id).Where(s => s.financial_year_start == employeeTakeLeave.financial_year_start).Where(s => s.financial_year_end == employeeTakeLeave.financial_year_end).ToList();
-                var leavesTakenForDays = 0;
-
-                for(int i = 0; i < getMedicalLeaveOfEmployee.Count(); i++)
-                {
-                    leavesTakenForDays += getMedicalLeaveOfEmployee[i].no_of_days;
-                }
-
-                if((getMedicalLeaveOfEmployee == null) || (leavesTakenForDays < 15))
-                {
-                    if(employeeTakeLeave.no_of_days > 15)
-                    {
-                        flag = false;
-                        // employeeTakeLeave.absent_days = employeeTakeLeave.no_of_days - 15;
-                    }
-                    else
-                    {
-                        flag = true;
-                    }
-
-                }
-                else
-                {
-                    // medical leave cannot be granted
-                    if(flag == false)
-                        ViewBag.result = "Maximum Number of Medical Leaves reached!";
-                    ViewBag.result = "Maximum Number of Medical Leaves reached!";
-                    return View();
-                }
-
-            }
-            
-            // Finally persisting the row values inside Employee Take Leave database
-            if (flag)
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Employees_Take_Leaves.Add(employeeTakeLeave);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
+       //     }
 
             return View(etl);
         }

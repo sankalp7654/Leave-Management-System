@@ -19,10 +19,10 @@
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Other_Leave_Counts_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Take_Leaves_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employees_Take_Leaves_Leave" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LeaveManagementDBModel.Block_HQ" Width="1.5" PointX="5.375" PointY="6.75" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Employee" />
+        <EntityTypeShape EntityType="LeaveManagementDBModel.Block_HQ" Width="1.5" PointX="5.375" PointY="7.875" />
         <AssociationConnector Association="LeaveManagementDBModel.FK_Employee_Block_HQ" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

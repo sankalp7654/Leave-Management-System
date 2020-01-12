@@ -11,10 +11,7 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            Id
-        </th>
-        <th>
+       <th>
             Name
         </th>
         <th></th>
@@ -22,9 +19,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>
@@ -37,3 +31,7 @@
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</div>

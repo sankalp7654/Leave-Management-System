@@ -195,24 +195,16 @@
       <End Role="Leave" EntitySet="Leaves" />
       <End Role="Employees_Take_Leaves" EntitySet="Employees_Take_Leaves" />
     </AssociationSet>
-    <EntitySet Name="Block_HQ" EntityType="LeaveManagementDBModel.Block_HQ" />
     <AssociationSet Name="FK_Employee_Employee" Association="LeaveManagementDBModel.FK_Employee_Employee">
       <End Role="Employee" EntitySet="Employees" />
       <End Role="Employee1" EntitySet="Employees" />
     </AssociationSet>
+    <EntitySet Name="Block_HQ" EntityType="LeaveManagementDBModel.Block_HQ" />
     <AssociationSet Name="FK_Employee_Block_HQ" Association="LeaveManagementDBModel.FK_Employee_Block_HQ">
       <End Role="Block_HQ" EntitySet="Block_HQ" />
       <End Role="Employee" EntitySet="Employees" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Block_HQ">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Employees" Relationship="LeaveManagementDBModel.FK_Employee_Block_HQ" FromRole="Block_HQ" ToRole="Employee" />
-  </EntityType>
   <Association Name="FK_Employee_Employee">
     <End Type="LeaveManagementDBModel.Employee" Role="Employee" Multiplicity="1" />
     <End Type="LeaveManagementDBModel.Employee" Role="Employee1" Multiplicity="0..1" />
@@ -225,6 +217,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Block_HQ">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employees" Relationship="LeaveManagementDBModel.FK_Employee_Block_HQ" FromRole="Block_HQ" ToRole="Employee" />
+  </EntityType>
   <Association Name="FK_Employee_Block_HQ">
     <End Type="LeaveManagementDBModel.Block_HQ" Role="Block_HQ" Multiplicity="1" />
     <End Type="LeaveManagementDBModel.Employee" Role="Employee" Multiplicity="*" />

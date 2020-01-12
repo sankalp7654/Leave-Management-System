@@ -4,18 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Blocks HQ Lists</h2>
+<h2>Block HQ List</h2>
 
 <p>
-    @Html.ActionLink("Add a new Block HQ", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            Id
-        </th>
-        <th>
-            Name
+            @Html.DisplayNameFor(model => model.name)
         </th>
         <th></th>
     </tr>
@@ -23,17 +20,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
 }
 
 </table>
+
+
+<div>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</div>

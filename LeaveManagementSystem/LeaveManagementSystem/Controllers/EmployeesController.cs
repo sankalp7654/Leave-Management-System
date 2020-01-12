@@ -42,6 +42,9 @@ namespace LeaveManagementSystem.Controllers
             ViewBag.type_of_institute_id = new SelectList(db.Type_Of_Institute, "id", "name");
             ViewBag.posting_place_id = new SelectList(db.Posting_Place, "id", "name");
             ViewBag.block_id = new SelectList(db.Block_HQ, "id", "name");
+
+            // for distinct block names
+            //ViewBag.block_name = new SelectList(db.Block_HQ.Select(m => m.name).Distinct(), "name", "name");
             return View();
         }
 
@@ -54,6 +57,7 @@ namespace LeaveManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                employee.code = "NHM" + employee.code;
                 db.Employees.Add(employee);
                 db.SaveChanges();
 
@@ -159,5 +163,23 @@ namespace LeaveManagementSystem.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public JsonResult GetInstitutesList(string blockName)
+        {
+            LeaveManagementDBEntities db = new LeaveManagementDBEntities();
+            if (blockName != null)
+            {
+                var getBlocks = db.Employees.Where(s => s.name == blockName).ToList();
+
+                
+
+            }
+
+
+
+            return Json(new { success = false });
+        }
+
     }
 }
